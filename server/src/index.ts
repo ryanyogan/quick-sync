@@ -1,31 +1,19 @@
 import { GraphQLServer } from "graphql-yoga";
 
 import { Prisma } from "./generated/prisma-client";
-
-const typeDefs = `
-  type Query {
-    hello(name: String): String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: (_, { name }) => {
-      const returnValue = `Hello ${name || "World!"}`;
-      return returnValue;
-    }
-  }
-};
+import { IResponseRequest } from "./types/prisma";
+import resolvers from "./resolvers";
 
 const prisma = new Prisma({
   endpoint: "http://localhost:4466"
 });
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: "./src/schema.graphql",
   resolvers,
-  context: req => ({
-    ...req,
+  context: ({ request, response }: IResponseRequest) => ({
+    ...request,
+    ...response,
     prisma
   })
 });

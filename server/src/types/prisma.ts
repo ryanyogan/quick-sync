@@ -2,8 +2,8 @@ import { Request, Response } from "express-serve-static-core";
 import { Prisma } from "../generated/prisma-client";
 
 export interface IResponseRequest {
-  req: Request & { userId: string };
-  res: Response;
+  request: Request & { userId: string }; // Added a userId, will be using JWT
+  response: Response;
 }
 
 export interface Context extends IResponseRequest {
