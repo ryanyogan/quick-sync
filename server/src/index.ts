@@ -11,9 +11,8 @@ const prisma = new Prisma({
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
   resolvers,
-  context: ({ request, response }: IResponseRequest) => ({
+  context: (request: IResponseRequest) => ({
     ...request,
-    ...response,
     prisma
   })
 });

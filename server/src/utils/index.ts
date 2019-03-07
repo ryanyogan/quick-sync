@@ -1,24 +1,18 @@
 import * as jwt from "jsonwebtoken";
+import { Context } from "../types/prisma";
 
-export const isLoggedIn = (
-  resolve: any,
-  parent: any,
-  _: any,
-  { request, response }
-) => {
-  const Authorization = request.get("Authorization");
-
+export const getUserId = (ctx: Context) => {
+  const Authorization = ctx.request.get("Authorization");
   if (Authorization) {
     const token = Authorization.replace("Bearer ", "");
-    const { userId } = jwt.verify(token, "foobar") as any;
-
-    return resolve({ userId, ...parent });
+    const { userId } = jwt.verify(token, "foobar") as { userId: string };
+    return userId;
   }
 
   throw new AuthError();
 };
 
-class AuthError extends Error {
+export class AuthError extends Error {
   constructor() {
     super("Not Authorized");
   }
