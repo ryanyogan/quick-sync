@@ -1,7 +1,8 @@
 import { gql } from "apollo-boost";
 
-export default apolloClient =>
-  apolloClient
+export default apolloClient => {
+  console.log(apolloClient);
+  return apolloClient
     .query({
       query: gql`
         query me {
@@ -18,3 +19,4 @@ export default apolloClient =>
     .catch(() => {
       return { me: null }; // Graceful fail, return null
     });
+};

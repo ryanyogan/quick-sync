@@ -18,6 +18,19 @@ export default class MyDocument extends Document {
         <body className="font-sans antialiased">
           <Main />
           <NextScript />
+
+          <style jsx global>
+            {`
+              .gradient-primary {
+                background-image: linear-gradient(
+                  60deg,
+                  #29323c,
+                  0%,
+                  #485563 100%
+                );
+              }
+            `}
+          </style>
         </body>
       </html>
     );
