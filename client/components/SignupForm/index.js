@@ -1,7 +1,6 @@
 import React from "react";
 import cookie from "cookie";
-import { Mutation } from "react-apollo";
-import { withApollo } from "react-apollo";
+import { Mutation, withApollo } from "react-apollo";
 
 import redirect from "../../lib/redirect";
 import SIGNUP_MUTATION from "../../graphql/mutations/signup";
@@ -12,16 +11,15 @@ const Signup = ({ client }) => {
   return (
     <Mutation
       mutation={SIGNUP_MUTATION}
-      onCompleted={data => {
+      onCompleted={async data => {
         document.cookie = cookie.serialize("token", data.signup.token, {
           maxAge: 30 * 24 * 60 * 60 // 30 days
         });
 
         // Force a reload of current queries now that user
         // is logged in.
-        client.caache.reset().then(() => {
-          redirect({}, "/");
-        });
+        await client.cache.reset();
+        redirect({}, "/");
       }}
     >
       {(signup, { loading, error, data }) => (

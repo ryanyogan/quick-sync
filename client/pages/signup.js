@@ -3,11 +3,11 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 import SignupForm from "../components/SignupForm";
 
 export default class SignupPage extends React.Component {
-  static async getInitialProps({ res, apolloClient }) {
-    const { me } = await checkLoggedIn(apolloClient);
+  static async getInitialProps(context, apolloClient) {
+    const { me } = await checkLoggedIn(context.apolloClient);
 
     if (me) {
-      redirect(res, "/");
+      redirect(context, "/");
     }
 
     return { me };
