@@ -2,7 +2,6 @@ import { gql } from "apollo-boost";
 import { Query, ApolloConsumer } from "react-apollo";
 import cookie from "cookie";
 
-import withApollo from "../../lib/withApollo";
 import redirect from "../../lib/redirect";
 
 const ME = gql`
@@ -45,4 +44,4 @@ const AuthenticatedUser = ({ children }) => {
   );
 };
 
-export default withApollo(AuthenticatedUser);
+export default AuthenticatedUser;
