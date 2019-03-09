@@ -1,21 +1,23 @@
-import { getUserId } from "../utils";
 import { Context } from "../types/prisma";
-import { userInfo } from "os";
 
 export const Conversation = {
-  name: async (_: any, __: any, ctx: Context) => {
-    // const id = getUserId(ctx);
-    // const user = await ctx.prisma.user({ id }).conversations
+  name: async ({ id, name }: any, __: any, ctx: Context) => {
+    const participants = await ctx.prisma.conversation({ id }).participants();
+    console.log("PARTY", participants);
 
-    // if (user.participants.length > 2) {
-    //   return name;
-    // } else if (participants.length === 2) {
-    //   if (participants[0].id === userId) {
-    //     return participants[1].username;
-    //   } else {
-    //     return participants[0].username;
-    //   }
-    // }
-    return "Foo";
-  }
+    if (participants.length > 2) {
+      return name;
+    } else if (participants.length === 2) {
+      if (participants[0].id === ctx.request.userId) {
+        return participants[1].username;
+      } else {
+        return participants[0].username;
+      }
+    }
+
+    return name;
+  },
+
+  participants: async ({ id }, _: any, ctx: Context) =>
+    ctx.prisma.conversation({ id }).participants()
 };

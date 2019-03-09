@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
-import { IResolverMap } from "../types/prisma";
+import { IResolverMap, Context } from "../types/prisma";
+import { getUserId } from "../utils";
 
 interface IData {
   name: string;
@@ -30,11 +31,14 @@ export const Mutation: IResolverMap = {
         user: newUser
       };
     },
+
     createConversation: (
-      { userId },
+      _,
       { name, participantIds, message },
-      { prisma }
+      ctx: Context
     ) => {
+      const userId = getUserId(ctx);
+      console.log(participantIds);
       let allParticipantIds = participantIds;
       allParticipantIds.push(userId);
 
@@ -60,12 +64,14 @@ export const Mutation: IResolverMap = {
         };
       }
 
-      return prisma.createConversation({ ...data });
+      console.log("DATA INSERT", JSON.stringify(data));
+
+      return ctx.prisma.createConversation({ ...data });
     },
 
-    sendMessage: async ({ userId }, { conversationId, text }, { prisma }) =>
+    sendMessage: async ({ userId }, { conversationId, message }, { prisma }) =>
       prisma.createMessage({
-        text,
+        message,
         author: {
           connect: {
             id: userId

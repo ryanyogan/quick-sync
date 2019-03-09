@@ -8,8 +8,14 @@ import AuthenticatedUser from "../components/AuthenticatedUser";
 import SearchInput from "../components/SearchInput";
 import Footer from "../components/Footer";
 import UserList from "../components/UserList";
+import ConversationList from "../components/ConversationList";
 
-import { USERS_QUERY } from "../graphql/queries";
+import { USERS_QUERY, MY_CONVERSATIONS_QUERY } from "../graphql/queries";
+
+const contexts = {
+  CONVERSATION: "CONVERSATION",
+  USER: "USER"
+};
 
 class Index extends React.Component {
   state = {
@@ -98,6 +104,40 @@ class Index extends React.Component {
     );
   }
 
+  renderConversationList() {
+    return (
+      <Query query={MY_CONVERSATIONS_QUERY}>
+        {({ loading, error, data }) => {
+          return (
+            <ConversationList
+              onClick={conversation => {
+                this.setState(prevState => ({
+                  ...prevState,
+                  context: {
+                    name: contexts.CONVERSATION,
+                    id: conversation.id,
+                    data: conversation
+                  }
+                }));
+              }}
+              {...{
+                loading,
+                error,
+                conversations: data.me.conversations.filter(conversation =>
+                  this.state.searchInput !== ""
+                    ? conversation.name
+                        .toUpperCase()
+                        .includes(this.state.searchInput.toUpperCase())
+                    : conversation
+                )
+              }}
+            />
+          );
+        }}
+      </Query>
+    );
+  }
+
   render() {
     return (
       <div className="flex flex-col justify-center items-center h-screen">
@@ -111,6 +151,7 @@ class Index extends React.Component {
               {this.renderSearchInput()}
             </div>
             <div className="flex-1 overflow-y-scroll scrolling-touch py-2">
+              {this.renderConversationList()}
               {this.renderUserList()}
             </div>
           </div>

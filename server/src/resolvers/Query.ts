@@ -12,5 +12,9 @@ export const Query: IResolvers = {
       const id = getUserId(ctx);
       return ctx.prisma.user({ id });
     }
+  },
+  User: {
+    conversations: async ({ id }, _: any, ctx: Context) =>
+      ctx.prisma.user({ id }).conversations()
   }
 };

@@ -199,8 +199,8 @@ export interface ClientConstructor<T> {
 export type MessageOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "text_ASC"
-  | "text_DESC"
+  | "message_ASC"
+  | "message_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -316,20 +316,20 @@ export interface MessageWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
+  message?: String;
+  message_not?: String;
+  message_in?: String[] | String;
+  message_not_in?: String[] | String;
+  message_lt?: String;
+  message_lte?: String;
+  message_gt?: String;
+  message_gte?: String;
+  message_contains?: String;
+  message_not_contains?: String;
+  message_starts_with?: String;
+  message_not_starts_with?: String;
+  message_ends_with?: String;
+  message_not_ends_with?: String;
   createdAt?: DateTimeInput;
   createdAt_not?: DateTimeInput;
   createdAt_in?: DateTimeInput[] | DateTimeInput;
@@ -511,11 +511,11 @@ export interface MessageUpdateWithWhereUniqueWithoutConversationInput {
 }
 
 export interface MessageUpdateManyMutationInput {
-  text?: String;
+  message?: String;
 }
 
 export interface MessageUpdateWithoutConversationDataInput {
-  text?: String;
+  message?: String;
   author?: UserUpdateOneRequiredInput;
 }
 
@@ -727,20 +727,20 @@ export interface MessageScalarWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
+  message?: String;
+  message_not?: String;
+  message_in?: String[] | String;
+  message_not_in?: String[] | String;
+  message_lt?: String;
+  message_lte?: String;
+  message_gt?: String;
+  message_gte?: String;
+  message_contains?: String;
+  message_not_contains?: String;
+  message_starts_with?: String;
+  message_not_starts_with?: String;
+  message_ends_with?: String;
+  message_not_ends_with?: String;
   createdAt?: DateTimeInput;
   createdAt_not?: DateTimeInput;
   createdAt_in?: DateTimeInput[] | DateTimeInput;
@@ -790,11 +790,11 @@ export interface ConversationSubscriptionWhereInput {
 }
 
 export interface MessageUpdateManyDataInput {
-  text?: String;
+  message?: String;
 }
 
 export interface MessageUpdateInput {
-  text?: String;
+  message?: String;
   author?: UserUpdateOneRequiredInput;
   conversation?: ConversationUpdateOneRequiredWithoutMessagesInput;
 }
@@ -835,7 +835,7 @@ export interface UserUpdateManyWithoutConversationsInput {
 }
 
 export interface MessageCreateInput {
-  text: String;
+  message: String;
   author: UserCreateOneInput;
   conversation: ConversationCreateOneWithoutMessagesInput;
 }
@@ -851,7 +851,7 @@ export interface ConversationCreateWithoutParticipantsInput {
 }
 
 export interface MessageCreateWithoutConversationInput {
-  text: String;
+  message: String;
   author: UserCreateOneInput;
 }
 
@@ -905,14 +905,14 @@ export interface ConversationEdgeSubscription
 
 export interface Message {
   id: ID_Output;
-  text: String;
+  message: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
 export interface MessagePromise extends Promise<Message>, Fragmentable {
   id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
+  message: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   author: <T = UserPromise>() => T;
@@ -923,7 +923,7 @@ export interface MessageSubscription
   extends Promise<AsyncIterator<Message>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
+  message: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   author: <T = UserSubscription>() => T;
@@ -973,7 +973,7 @@ export interface MessageSubscriptionPayloadSubscription
 
 export interface MessagePreviousValues {
   id: ID_Output;
-  text: String;
+  message: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -982,7 +982,7 @@ export interface MessagePreviousValuesPromise
   extends Promise<MessagePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
+  message: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -991,7 +991,7 @@ export interface MessagePreviousValuesSubscription
   extends Promise<AsyncIterator<MessagePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
+  message: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

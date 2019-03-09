@@ -1,7 +1,6 @@
-# import * from './generated/prisma.graphql'
+# import User, Conversation, Message from './generated/prisma.graphql'
 
 # TODO: POC, we will split up schema and we will break into modules
-
 type Query {
   users: [User!]
   me: User
@@ -14,7 +13,7 @@ type Mutation {
     participantIds: [ID!]!
     message: String
   ): Conversation!
-  sendMessage(conversationId: ID!, text: String!): Message!
+  sendMessage(conversationId: ID!, message: String!): Message!
 }
 
 type AuthPayload {

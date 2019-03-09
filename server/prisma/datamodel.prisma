@@ -17,7 +17,7 @@ type Conversation {
 
 type Message {
   id: ID! @unique
-  text: String!
+  message: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   author: User!
